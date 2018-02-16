@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -137,6 +138,11 @@ namespace TechJobsConsole
             valueBuilder.Clear();
 
             return rowValues.ToArray();
+        }
+
+        internal static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

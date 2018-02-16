@@ -10,12 +10,12 @@ namespace TechJobsConsole
             // Create two Dictionary vars to hold info for menu and data
 
             // Top-level menu options
-            Dictionary<string, string> actionChoices = new Dictionary<string, string>();
+            Dictionary<string, string> actionChoices = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             actionChoices.Add("search", "Search");
             actionChoices.Add("list", "List");
 
             // Column options
-            Dictionary<string, string> columnChoices = new Dictionary<string, string>();
+            Dictionary<string, string> columnChoices = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             columnChoices.Add("core competency", "Skill");
             columnChoices.Add("employer", "Employer");
             columnChoices.Add("location", "Location");
@@ -74,9 +74,7 @@ namespace TechJobsConsole
             }
         }
 
-        /*
-         * Returns the key of the selected item from the choices Dictionary
-         */
+
         private static string GetUserSelection(string choiceHeader, Dictionary<string, string> choices)
         {
             int choiceIdx;
@@ -116,9 +114,50 @@ namespace TechJobsConsole
             return choiceKeys[choiceIdx];
         }
 
-        private static void PrintJobs(List<Dictionary<string, string>> someJobs)
+        public static System.Text.StringBuilder Long(System.Text.StringBuilder myString, int Length)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            if (myString.Length == Length)
+            {
+                return myString;
+            }
+            else
+            {
+                return Long(myString.Append(" "), Length);
+            }
+        }
+ 
+            public static void PrintJobs(List<Dictionary<string, string>> jobs)
+        {
+            if (jobs.Count != 0)
+            {
+                foreach (Dictionary<string, string> job in jobs)
+                {
+                    Console.WriteLine("***********");
+                    foreach (string key in job.Keys)
+                    {
+
+                        System.Text.StringBuilder keyBuilder = new System.Text.StringBuilder();
+                        keyBuilder.Append(key);
+                        keyBuilder = Long(keyBuilder, 25);
+                        Console.WriteLine(keyBuilder + " : " + job[key]);
+                    }
+                    Console.WriteLine("\n");
+                }
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Sorry, Nothing to see here!");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
     }
 }
+
+
+
+
+
+
